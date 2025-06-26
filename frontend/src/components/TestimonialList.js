@@ -13,7 +13,7 @@ function getRandomColor(seed) {
 }
 
 const TestimonialList = ({ testimonials }) => {
-  if (!testimonials || testimonials.length === 0) {
+  if (!Array.isArray(testimonials) || testimonials.length === 0) {
     return <div className="text-gray-400 text-center">No testimonials yet.</div>;
   }
   return (
@@ -47,4 +47,4 @@ const TestimonialList = ({ testimonials }) => {
   );
 };
 
-export default TestimonialList; 
+export default TestimonialList;
