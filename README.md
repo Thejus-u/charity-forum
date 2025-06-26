@@ -245,13 +245,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - MongoDB for the flexible database solution
 - All contributors and community members
 
-## 📞 Support
 
-For support and questions:
-- Create an issue in the repository
-- Email: support@donationforum.com
-- Documentation: [docs.donationforum.com](https://docs.donationforum.com)
-
----
 
 Made with ❤️ for the community 
