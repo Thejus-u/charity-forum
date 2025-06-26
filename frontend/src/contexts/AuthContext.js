@@ -2,6 +2,8 @@ import React, { createContext, useContext, useReducer, useEffect } from 'react';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 
+const API_URL = process.env.REACT_APP_API_URL;
+
 const AuthContext = createContext();
 
 const initialState = {
@@ -67,7 +69,7 @@ export const AuthProvider = ({ children }) => {
       if (state.token) {
         try {
           dispatch({ type: 'AUTH_START' });
-          const res = await axios.get('/api/auth/me');
+          const res = await axios.get(`${API_URL}/api/auth/me`);
           dispatch({
             type: 'AUTH_SUCCESS',
             payload: { user: res.data.user, token: state.token },
@@ -87,14 +89,12 @@ export const AuthProvider = ({ children }) => {
   const register = async (userData) => {
     try {
       dispatch({ type: 'AUTH_START' });
-      const res = await axios.post('/api/auth/register', userData);
-      
+      const res = await axios.post(`${API_URL}/api/auth/register`, userData);
       localStorage.setItem('token', res.data.token);
       dispatch({
         type: 'AUTH_SUCCESS',
         payload: { user: res.data.user, token: res.data.token },
       });
-      
       toast.success('Registration successful!');
       return { success: true };
     } catch (error) {
@@ -108,14 +108,12 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       dispatch({ type: 'AUTH_START' });
-      const res = await axios.post('/api/auth/login', credentials);
-      
+      const res = await axios.post(`${API_URL}/api/auth/login`, credentials);
       localStorage.setItem('token', res.data.token);
       dispatch({
         type: 'AUTH_SUCCESS',
         payload: { user: res.data.user, token: res.data.token },
       });
-      
       toast.success('Login successful!');
       return { success: true };
     } catch (error) {
@@ -134,7 +132,7 @@ export const AuthProvider = ({ children }) => {
 
   const updateProfile = async (profileData) => {
     try {
-      const res = await axios.put('/api/auth/profile', profileData);
+      const res = await axios.put(`${API_URL}/api/auth/profile`, profileData);
       dispatch({ type: 'UPDATE_USER', payload: res.data.user });
       toast.success('Profile updated successfully!');
       return { success: true };
@@ -147,7 +145,7 @@ export const AuthProvider = ({ children }) => {
 
   const changePassword = async (passwordData) => {
     try {
-      await axios.put('/api/auth/password', passwordData);
+      await axios.put(`${API_URL}/api/auth/password`, passwordData);
       toast.success('Password changed successfully!');
       return { success: true };
     } catch (error) {
